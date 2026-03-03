@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Resume Screening and Job Matcher</title>
+
+<link rel="stylesheet" href="css/style.css">
+
+<style>
+.navbar{
+background: linear-gradient(45deg,#667eea,#764ba2);
+color:white;
+padding:15px;
+font-size:22px;
+font-weight:bold;
+text-align:center;
+}
+
+.menu{
+display:flex;
+justify-content:center;
+gap:20px;
+margin-top:30px;
+flex-wrap:wrap;
+}
+
+.card{
+background:white;
+padding:30px;
+border-radius:15px;
+width:250px;
+box-shadow:0 10px 25px rgba(0,0,0,0.15);
+text-align:center;
+transition:0.3s;
+}
+
+.card:hover{
+transform:translateY(-8px);
+}
+
+.card button{
+margin-top:15px;
+width:100%;
+}
+
+.footer{
+margin-top:40px;
+text-align:center;
+color:#777;
+font-size:14px;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="navbar">
+ Resume Screening and Job Matcher
+</div>
+
+<div class="container">
+
+<h2>Welcome to Resume Screening and Job Matcher</h2>
+<p style="text-align:center;">Choose an option below</p>
+
+<div class="menu">
+
+<div class="card">
+<h3>Login</h3>
+<p>Already have account?</p>
+<button onclick="location.href='login.html'">Login</button>
+</div>
+
+<div class="card">
+<h3>Register</h3>
+<p>Create new account</p>
+<button onclick="location.href='register.html'">Register</button>
+</div>
+
+<div class="card">
+<h3>View Jobs</h3>
+<p>Browse available jobs</p>
+<button onclick="location.href='jobs.html'">Jobs</button>
+</div>
+
+<div class="card">
+<h3>Upload Resume</h3>
+<p>Upload your resume</p>
+<button onclick="location.href='upload.html'">Upload</button>
+</div>
+
+</div>
+
+<div class="footer">
+
+</div>
+
+</div>
+
+</body>
+</html>

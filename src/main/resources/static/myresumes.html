@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Resumes | JobMatch</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+        }
+
+        .container {
+            width: 80%;
+            margin: auto;
+            padding: 40px 0;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+            transition: 0.3s;
+        }
+
+        .card:hover {
+            transform: scale(1.02);
+        }
+
+        .btn {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-right: 10px;
+            font-weight: bold;
+        }
+
+        .download {
+            background: #00c6ff;
+            color: white;
+        }
+
+        .delete {
+            background: #ff4b5c;
+            color: white;
+        }
+
+        .back {
+            background: black;
+            color: white;
+            padding: 10px 20px;
+            margin-top: 30px;
+            display: inline-block;
+            border-radius: 10px;
+            text-decoration: none;
+        }
+
+        input {
+            padding: 10px;
+            width: 300px;
+            border-radius: 8px;
+            border: none;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1>My Uploaded Resumes</h1>
+
+    <center>
+        <input type="text" id="email" placeholder="Enter your email">
+        <button class="btn download" onclick="loadResumes()">Load Resumes</button>
+    </center>
+
+    <div id="resumeList"></div>
+
+    <center>
+        <a href="index.html" class="back">Back to Dashboard</a>
+    </center>
+</div>
+
+<script>
+
+function loadResumes(){
+
+    let email = document.getElementById("email").value;
+
+    fetch("/resume/all?email=" + email)
+    .then(res => res.json())
+    .then(data => {
+
+        let output = "";
+
+        if(data.length === 0){
+            output = "<h3>No resumes found</h3>";
+        }
+
+        data.forEach(resume => {
+
+            output += `
+                <div class="card">
+                    <h3>${resume.fileName}</h3>
+                    <p>Email: ${resume.email}</p>
+                    <button class="btn download" onclick="downloadResume()">Download</button>
+                    <button class="btn delete" onclick="deleteResume(${resume.id})">Delete</button>
+                </div>
+            `;
+        });
+
+        document.getElementById("resumeList").innerHTML = output;
+
+    });
+}
+
+function deleteResume(id){
+
+	fetch("/resume/delete/" + id,{
+        method:"DELETE"
+    })
+    .then(res => res.text())
+    .then(msg => {
+        alert(msg);
+        loadResumes();
+    });
+
+}
+
+function downloadResume(){
+    window.location.href = "/resume/download";
+}
+
+</script>
+
+</body>
+</html>

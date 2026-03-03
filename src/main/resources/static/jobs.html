@@ -1,0 +1,40 @@
+<link rel="stylesheet" href="css/style.css">
+
+<div class="navbar">
+Available Jobs
+<button style="float:right;margin-right:20px;" onclick="logout()">Logout</button>
+</div>
+
+<div class="jobs-container">
+
+<button onclick="loadJobs()">Load Jobs</button>
+
+<div id="jobs"></div>
+
+</div>
+
+<script>
+function loadJobs(){
+fetch("http://localhost:6545/jobs/all")
+.then(res=>res.json())
+.then(data=>{
+let html="";
+data.forEach(job=>{
+html+=`
+<div class="job-card">
+<h3>${job.title}</h3>
+<p><b>${job.company}</b> • ${job.location}</p>
+<p>${job.description}</p>
+<span class="tag">Apply Now</span>
+</div>
+`
+})
+document.getElementById("jobs").innerHTML=html;
+})
+}
+
+function logout(){
+localStorage.clear();
+location.href="login.html";
+}
+</script>
